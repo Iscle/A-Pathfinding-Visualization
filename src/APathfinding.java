@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 class APathfinding {
 	private int size, diagonalMoveCost;
@@ -11,7 +11,6 @@ class APathfinding {
 	private final ArrayList<Node> open;
 	private final ArrayList<Node> closed;
 	private final ArrayList<Node> path;
-	private final Sort sort = new Sort();
 
 	public APathfinding(int size) {
 		this.size = size;
@@ -482,7 +481,7 @@ class APathfinding {
 
 	private Node lowestFCost() {
 		if (open.size() > 0) {
-			sort.bubbleSort(open);
+			open.sort(Comparator.comparingInt(Node::getF));
 			return open.get(0);
 		}
 		return null;
