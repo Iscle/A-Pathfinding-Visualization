@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * used, quick sort needs work. Currently not working
  * by Devon Crawford
  */
-public class Sort {
+class Sort {
 
 	private boolean lowToHigh, highToLow;
 
@@ -74,7 +74,7 @@ public class Sort {
 
 	// low is 0, high is numbers.length - 1
 	// TODO: FIX HIGH TO LOW QUICKSORT
-	public void quickSort(int[] numbers, int low, int high) {
+    private void quickSort(int[] numbers, int low, int high) {
 		int i = low, j = high;
 
 		int pivot = numbers[low + (high - low) / 2];

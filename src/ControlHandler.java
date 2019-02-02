@@ -7,33 +7,41 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /* This class manages all components used on the main
  * control panel (bottom left) Meant to remove some
  * excessive graphics code from "Frame.java" class
  * by Devon Crawford
  */
-public class ControlHandler {
-	private Frame frame;
-	private JLabel modeText, speedT, speedC, openT, 
-	closedT, pathT, openC, closedC, pathC, noPathT;
-	private JCheckBox showStepsCheck, diagonalCheck, trigCheck;
-	private JSlider speed;
-	private JButton run;
-	private ArrayList<JLabel> labels;
-	private ArrayList<JCheckBox> checks;
-	private ArrayList<JSlider> sliders;
-	private ArrayList<JButton> buttons;
-	Dimension npD;
+class ControlHandler {
+	private final Frame frame;
+	private final JLabel modeText;
+	private final JLabel speedT;
+	private final JLabel speedC;
+	private final JLabel openT;
+	private final JLabel closedT;
+	private final JLabel pathT;
+	private final JLabel openC;
+	private final JLabel closedC;
+	private final JLabel pathC;
+	private final JLabel noPathT;
+	private final JCheckBox showStepsCheck;
+	private final JCheckBox diagonalCheck;
+	private final JCheckBox trigCheck;
+	private final JSlider speed;
+	private final JButton run;
+	private final ArrayList<JLabel> labels;
+	private final ArrayList<JCheckBox> checks;
+	private final ArrayList<JSlider> sliders;
+	private final ArrayList<JButton> buttons;
+	private final Dimension npD;
 	
 	public ControlHandler(Frame frame) {
 		this.frame = frame;
-		labels = new ArrayList<JLabel>();
-		checks = new ArrayList<JCheckBox>();
-		sliders = new ArrayList<JSlider>();
-		buttons = new ArrayList<JButton>();
+		labels = new ArrayList<>();
+		checks = new ArrayList<>();
+		sliders = new ArrayList<>();
+		buttons = new ArrayList<>();
 		
 		// Set up JLabels
 		modeText = new JLabel("Mode: ");
@@ -135,14 +143,11 @@ public class ControlHandler {
 		speed.setOpaque(false);
 		speed.setVisible(true);
 		speed.setFocusable(false);
-		speed.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				JSlider source = (JSlider) e.getSource();
-				speed.setValue(source.getValue());
-				frame.setSpeed();
-				frame.repaint();
-			}
+		speed.addChangeListener(e -> {
+			JSlider source = (JSlider) e.getSource();
+			speed.setValue(source.getValue());
+			frame.setSpeed();
+			frame.repaint();
 		});
 		
 		// Add JSliders to list
@@ -163,9 +168,9 @@ public class ControlHandler {
 	
 	// Gets a specific JLabel by name
 	public JLabel getL(String t) {
-		for(int i = 0; i < labels.size(); i++) {
-			if(labels.get(i).getName().equals(t)) {
-				return labels.get(i);
+		for (JLabel label : labels) {
+			if (label.getName().equals(t)) {
+				return label;
 			}
 		}
 		return null;
@@ -173,9 +178,9 @@ public class ControlHandler {
 	
 	// Gets specific JCheckBox by name
 	public JCheckBox getC(String t) {
-		for(int i = 0; i < checks.size(); i++) {
-			if(checks.get(i).getName().equals(t)) {
-				return checks.get(i);
+		for (JCheckBox check : checks) {
+			if (check.getName().equals(t)) {
+				return check;
 			}
 		}
 		return null;
@@ -183,9 +188,9 @@ public class ControlHandler {
 	
 	// Gets specific JCheckBox by name
 	public JSlider getS(String t) {
-		for(int i = 0; i < sliders.size(); i++) {
-			if(sliders.get(i).getName().equals(t)) {
-				return sliders.get(i);
+		for (JSlider slider : sliders) {
+			if (slider.getName().equals(t)) {
+				return slider;
 			}
 		}
 		return null;
@@ -193,9 +198,9 @@ public class ControlHandler {
 	
 	// Gets specific JCheckBox by name
 	public JButton getB(String t) {
-		for(int i = 0; i < buttons.size(); i++) {
-			if(buttons.get(i).getName().equals(t)) {
-				return buttons.get(i);
+		for (JButton button : buttons) {
+			if (button.getName().equals(t)) {
+				return button;
 			}
 		}
 		return null;

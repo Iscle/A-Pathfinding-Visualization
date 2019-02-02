@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,45 +11,41 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /* The main graphics class for APathfinding. Controls the window,
  * and all path finding node graphics. Need to work on zoom function,
  * currently only zooms to top left corner rather than towards mouse
  * by Devon Crawford
  */
-public class Frame extends JPanel
+class Frame extends JPanel
 		implements ActionListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 
-	ControlHandler ch;
-	JFrame window;
-	APathfinding pathfinding;
-	boolean showSteps, btnHover;
-	int size;
-	double a1, a2;
-	char currentKey = (char) 0;
-	Node startNode, endNode;
-	String mode;
+	private final ControlHandler ch;
+	private final APathfinding pathfinding;
+	private boolean showSteps;
+	private boolean btnHover;
+	private int size;
+	private final double a1;
+	private final double a2;
+	private char currentKey = (char) 0;
+	private Node startNode;
+	private Node endNode;
+	private String mode;
 	
-	Timer timer = new Timer(100, this);
-	int r = randomWithRange(0, 255);
-	int G = randomWithRange(0, 255);
-	int b = randomWithRange(0, 255);
+	private final Timer timer = new Timer(100, this);
+	private int r = randomWithRange(0, 255);
+	private int G = randomWithRange(0, 255);
+	private int b = randomWithRange(0, 255);
 
 	public static void main(String[] args) {
 		new Frame();
 	}
 
-	public Frame() {
+	private Frame() {
 		ch = new ControlHandler(this);
 		size = 25;
 		mode = "Map Creation";
@@ -73,7 +68,7 @@ public class Frame extends JPanel
 		a2 = 625.0000;
 		
 		// Set up window
-		window = new JFrame();
+		JFrame window = new JFrame();
 		window.setContentPane(this);
 		window.setTitle("A* Pathfinding Visualization");
 		window.getContentPane().setPreferredSize(new Dimension(700, 600));
@@ -236,7 +231,7 @@ public class Frame extends JPanel
 	}
 	
 	// Draws info (f, g, h) on current node
-	public void drawInfo(Node current, Graphics g) {
+	private void drawInfo(Node current, Graphics g) {
 		if (size > 50) {
 			g.setFont(style.numbers);
 			g.setColor(Color.black);
@@ -247,7 +242,7 @@ public class Frame extends JPanel
 		}
 	}
 
-	public void MapCalculations(MouseEvent e) {
+	private void MapCalculations(MouseEvent e) {
 		// If left mouse button is clicked
 		if (SwingUtilities.isLeftMouseButton(e)) {
 			// If 's' is pressed create start node
@@ -345,12 +340,7 @@ public class Frame extends JPanel
 		int height = this.getHeight();
 		
 		// Detects if mouse is within button panel
-		if(x >= 10 && x <= 332 && y >= (height-96) && y <= (height-6)) {
-			btnHover = true;
-		}
-		else {
-			btnHover = false;
-		}
+		btnHover = x >= 10 && x <= 332 && y >= (height - 96) && y <= (height - 6);
 		repaint();
 	}
 
@@ -359,8 +349,7 @@ public class Frame extends JPanel
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char key = e.getKeyChar();
-		currentKey = key;
+		currentKey = e.getKeyChar();
 
 		// Start if space is pressed
 		if (currentKey == KeyEvent.VK_SPACE) {
@@ -375,7 +364,7 @@ public class Frame extends JPanel
 	}
 	
 	// Starts path finding
-	void start() {
+	private void start() {
 		if(startNode != null && endNode != null) {
 			if (!showSteps) {
 				pathfinding.start(startNode, endNode);
@@ -494,7 +483,7 @@ public class Frame extends JPanel
 	}
 	
 	// Returns random number between min and max
-	int randomWithRange(int min, int max)
+	private int randomWithRange(int min, int max)
 	{
 	   int range = (max - min) + 1;     
 	   return (int)(Math.random() * range) + min;

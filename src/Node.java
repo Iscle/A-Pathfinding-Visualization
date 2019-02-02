@@ -65,9 +65,6 @@ public class Node {
 	}
 
 	public static boolean isEqual(Node s, Node e) {
-		if (s.getX() == e.getX() && s.getY() == e.getY()) {
-			return true;
-		}
-		return false;
+		return s.getX() == e.getX() && s.getY() == e.getY();
 	}
 }
